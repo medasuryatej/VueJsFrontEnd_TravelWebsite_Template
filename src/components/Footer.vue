@@ -27,7 +27,7 @@
             <router-link class="link" :to="{ name: 'Blogs' }"
               >Saved <i class="nav-icon fas fa-save"></i></router-link
             >
-            <router-link class="link" :to="{ name: 'newpost' }"
+            <router-link class="link" :to="{ name: 'Reserve' }"
               >RESERVATION <i class="nav-icon fas fa-plane-departure"></i></router-link
             >
             <router-link class="link" :to="{ name: 'Support'}">Support <i class="nav-icon fas fa-phone"></i></router-link>

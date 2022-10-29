@@ -8,6 +8,7 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 import Profile from "../views/Profile.vue";
 import Admin from "../views/Admin.vue";
 import Support from "../views/Support.vue";
+import Reserve from "../views/Reserve.vue";
 
 Vue.use(VueRouter);
 
@@ -17,64 +18,72 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: 'Home'
-    }
+      title: "Home",
+    },
   },
   {
     path: "/blogs",
     name: "Blogs",
     component: Blogs,
     meta: {
-      title: 'Blogs'
-    }
+      title: "Blogs",
+    },
   },
   {
     path: "/forgot-password",
     name: "ForgotPassword",
     component: ForgotPassword,
     meta: {
-      title: 'Forgot Password'
-    }
+      title: "Forgot Password",
+    },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
     meta: {
-      title: 'Login'
-    }
+      title: "Login",
+    },
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
     meta: {
-      title: 'Register'
-    }
+      title: "Register",
+    },
   },
   {
     path: "/profile",
     name: "Profile",
     component: Profile,
     meta: {
-      title: 'Profile'
-    }
+      title: "Profile",
+    },
   },
   {
     path: "/admin",
     name: "Admin",
     component: Admin,
     meta: {
-      title: 'Admin'
-    }
+      title: "Admin",
+    },
   },
   {
     path: "/support",
     name: "Support",
     component: Support,
     meta: {
-      title: 'Support'
-    }
+      title: "Support",
+    },
+  },
+  {
+    path: "/reserve",
+    name: "Reserve",
+    component: Reserve,
+    meta: {
+      title: "Reserve",
+    },
   },
 ];
 
@@ -86,7 +95,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title} | FireBlog`;
-  next(); 
+  next();
 });
 
 export default router;

@@ -10,7 +10,7 @@
         <ul v-show="!mobile">
           <router-link class="link" :to="{ name: 'Home' }">Home <i class="nav-icon fas fa-home"></i></router-link>
           <router-link class="link" :to="{ name: 'Blogs' }">Saved <i class="nav-icon  fas fa-save"></i></router-link>
-          <router-link class="link" to="#">Reservation <i class="nav-icon  fas fa-plane-departure"></i></router-link>
+          <router-link class="link" :to="{name: 'Reserve'}">Reservation <i class="nav-icon  fas fa-plane-departure"></i></router-link>
           <router-link class="link" :to="{ name: 'Support'}">Support <i class="nav-icon  fas fa-phone"></i></router-link>
           <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
             >Login/Register <i class="nav-icon fas fa-user"></i></router-link
@@ -58,7 +58,7 @@
       <ul class="mobile-nav" v-show="mobileNav">
         <router-link class="link" :to="{ name: 'Home' }">Home <i class="nav-icon fas fa-home"></i></router-link>
         <router-link class="link" :to="{ name: 'Blogs' }">Saved <i class="nav-icon  fas fa-save"></i></router-link>
-        <router-link class="link" to="#">Reservation <i class="nav-icon  fas fa-plane-departure"></i></router-link>
+        <router-link class="link" :to="{name: 'Reserve'}">Reservation <i class="nav-icon  fas fa-plane-departure"></i></router-link>
         <router-link class="link" :to="{ name: 'Support'}">Support <i class="nav-icon fas fa-phone"></i></router-link>
         <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
           >Login/Register <i class="nav-icon fas fa-user"></i></router-link
