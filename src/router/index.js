@@ -9,6 +9,7 @@ import Profile from "../views/Profile.vue";
 import Admin from "../views/Admin.vue";
 import Support from "../views/Support.vue";
 import Reserve from "../views/Reserve.vue";
+import Discounts from "../views/Discounts.vue";
 
 Vue.use(VueRouter);
 
@@ -83,6 +84,14 @@ const routes = [
     component: Reserve,
     meta: {
       title: "Reserve",
+    },
+  },
+  {
+    path: "/discounts",
+    name: "Discounts",
+    component: Discounts,
+    meta: {
+      title: "Discounts",
     },
   },
 ];

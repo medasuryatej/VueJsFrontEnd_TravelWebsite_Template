@@ -43,6 +43,12 @@
                   <p>Admin</p>
                 </router-link>
               </div>
+              <div class="option">
+                <router-link class="option" :to="{name: 'Discounts'}">
+                  <i class="fas fa-dollar-sign icon"></i>
+                  <p>Discounts</p>
+                </router-link>
+              </div>
               <div @click="signOut" class="option">
                   <signOutIcon class="icon" />
                   <p>SignOut</p>
