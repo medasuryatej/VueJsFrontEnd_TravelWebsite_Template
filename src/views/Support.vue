@@ -14,42 +14,104 @@
 
       <form @submit.prevent="formSubmitted" ref="contactForm">
         <label>Email</label>
-        <input type="email" placeholder="jonhdoe@gmail.com" />
+        <input
+          type="email"
+          placeholder="jonhdoe@gmail.com"
+          v-model="email"
+          required
+        />
         <label>Subject</label>
-        <input type="text" placeholder="issue subject" />
+        <input
+          type="text"
+          placeholder="issue subject"
+          v-model="subject"
+          required
+        />
         <label>Issue severity</label>
-        <select name="severity" id="severity">
+        <select name="severity" id="severity" v-model="severity" required>
           <option class="option" value="High">High</option>
           <option class="option" value="Medium">Medium</option>
           <option class="option" value="Low">Low</option>
         </select>
         <label>Description</label>
-        <textarea placeholder="Briefly describe your concern" rows="2" />
+        <textarea
+          placeholder="Briefly describe your concern"
+          rows="2"
+          v-model="description"
+        />
         <label>Case No:</label>
-        <input type="text" placeholder="reference no: if any" />
+        <input
+          type="text"
+          placeholder="reference no: if any"
+          v-model="caseno"
+        />
+        <p v-show="error" class="error">Fill the missing Fields</p>
         <button>Submit</button>
       </form>
     </div>
   </div>
 </template>
 
+<script type="text/javascript" src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
 export default {
   name: "Support",
   data() {
     return {
       status: false,
+      email: "",
+      subject: "",
+      severity: "",
+      description: "",
+      caseno: "",
+      error: false,
+      newcaseno: "",
     };
   },
   methods: {
     formSubmitted() {
+      if (
+        this.email === "" ||
+        this.description === "" ||
+        this.subject === ""
+      ) {
+        this.error = true;
+        return;
+      }
+
       this.status = true;
-      this.$refs.anyName.reset();
+      if (this.newcaseno === "") {
+        const caseno = caseNumber();
+      } else {
+        const caseno = this.newcaseno;
+      }
+
+      const messageBody =
+        "<br\> Thank You for Contacting Infinity Travel, our engineers are busy helping those in need.<br\>Rest assured you are in safe hands.<br\>Contact: Support@infinitytravel.com<br\>Phone: 800-555-5555<br\>Call us: M-F *:00AM-5:00PM EST ";
+
+      Email.send({
+        Host: "smtp.elasticemail.com",
+        Username: "rowine2732@ilusale.com",
+        Password: "A8BF065B83D3556D1B3196F506139DE3D965",
+        To: this.email,
+        From: "rowine2732@ilusale.com",
+        Subject: this.newcaseno + ": " + this.subject + " : " + this.severity,
+        Body: this.description + messageBody,
+      }).then((message) => alert("Issue registered, check the email."));
+
+      this.email = "";
+      this.description = "";
+      this.severity = "";
+      this.subject = "";
+      this.caseno = "";
     },
   },
   computed: {
     caseNumber() {
-      return Math.floor(Math.random() * 1000000000);
+      if (this.newcaseno === "") {
+        this.newcaseno = Math.floor(Math.random() * 1000000000);
+      }
+      return this.newcaseno;
     },
   },
 };
@@ -117,6 +179,13 @@ export default {
 
       button {
         font-weight: bold;
+      }
+
+      .error {
+        text-align: center;
+        color: red;
+        font-weight: bold;
+        font-size: 14px;
       }
     }
   }

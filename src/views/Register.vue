@@ -68,30 +68,36 @@ export default {
   methods: {
     async register() {
       if (
-        this.firstName !== "" &&
-        this.lastName !== "" &&
-        this.username !== "" &&
-        this.email !== "" &&
-        this.password !== ""
+        this.firstName !== null &&
+        this.lastName !== null &&
+        this.username !== null &&
+        this.email !== null &&
+        this.password !== null
       ) {
         this.error = false;
         this.errorMsg = "";
         const firebaseAuth = await firebase.auth();
-        const createUser = await firebaseAuth.createUserWithEmailAndPassword(
-          this.email,
-          this.password
-        );
-        const result = await createUser;
-        const dataBase = db.collection("users").doc(result.user.uid);
-        await dataBase.set({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          username: this.username,
-          email: this.email,
-          password: this.password,
-        });
-        this.$router.push({name: 'Home'});
-        return;
+        try {
+          const createUser = await firebaseAuth.createUserWithEmailAndPassword(
+            this.email,
+            this.password
+          );
+          const result = await createUser;
+          const dataBase = db.collection("users").doc(result.user.uid);
+          await dataBase.set({
+            firstName: this.firstName,
+            lastName: this.lastName,
+            username: this.username,
+            email: this.email,
+            password: this.password,
+          });
+          this.$router.push({ name: "Home" });
+          return;
+        } catch (err) {
+          this.error = true;
+          this.errorMsg = err.message;
+          return;
+        }
       }
       console.log("All fields not entered");
       this.error = true;
