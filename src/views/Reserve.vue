@@ -35,6 +35,18 @@
             <option value="Arkansas">Arkansas</option>
             <option value="Cedar Rapids">Cedar Rapids</option>
           </datalist>
+
+          <label for="start">Travel Date: </label>
+          <input
+            type="date"
+            id="start"
+            name="trip-start"
+            value="2022-12-01"
+            min="2022-12-01"
+            max="2023-12-01"
+            v-model="start_date"
+          />
+
           <button>Submit</button>
         </form>
       </div>
@@ -63,14 +75,14 @@ export default {
     return {
       sourceCity: "",
       destinationCity: "",
+      start_date: "",
       results: [],
       apiData: false,
     };
   },
   methods: {
     formSubmitted() {
-      console.log(this.sourceCity);
-      console.log(this.destinationCity);
+      console.log(this.start_date);
       const config = {
         method: "get",
         url: "http://localhost:8080/SPM_InfinityTravel/api/flights",
@@ -80,6 +92,7 @@ export default {
         params: {
           src: this.sourceCity,
           dest: this.destinationCity,
+          start_date: this.start_date,
         },
       };
 
