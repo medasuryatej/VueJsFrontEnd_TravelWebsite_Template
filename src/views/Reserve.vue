@@ -40,24 +40,58 @@
       </div>
     </div>
     <div class="right">
-      No Results Yet
+      <span v-if="apiData">Results found</span>
+      <span v-else>No Results Yet</span>
+      <div v-for="(result, index) in results" :key="index">
+        <!-- <p>{{ result.airline_name }}</p> -->
+        <FlightDetail :flightResult="result" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import FlightDetail from "../components/FlightDetail.vue";
+
 export default {
   name: "Reserve",
+  components: {
+    FlightDetail,
+  },
   data() {
     return {
       sourceCity: "",
       destinationCity: "",
+      results: [],
+      apiData: false,
     };
   },
   methods: {
     formSubmitted() {
       console.log(this.sourceCity);
       console.log(this.destinationCity);
+      const config = {
+        method: "get",
+        url: "http://localhost:8080/SPM_InfinityTravel/api/flights",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        params: {
+          src: this.sourceCity,
+          dest: this.destinationCity,
+        },
+      };
+
+      axios(config)
+        .then((res) => {
+          console.log(res);
+          this.apiData = true;
+          this.results = res.data;
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     },
   },
 };
@@ -108,6 +142,14 @@ export default {
 
   .right {
     flex: 1;
+    // text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+
+    span {
+      font-size: 24px;
+      font-weight: bold;
+    }
   }
 }
 </style>
