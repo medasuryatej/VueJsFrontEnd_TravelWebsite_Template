@@ -6,11 +6,15 @@
       </div>
       <form @submit.prevent="formSubmitted" ref="discountForm">
         <label>Discount Code</label>
-        <input type="text" placeholder="HPYTHANKSGIVING23" />
+        <input
+          type="text"
+          placeholder="HPYTHANKSGIVING23"
+          v-model="discountCode"
+        />
         <label>Percentage Discount</label>
-        <input type="number" placeholder="10" />
+        <input type="number" placeholder="10" v-model="percentageDiscount" />
         <label>Valid From Date</label>
-        <input type="date" />
+        <input type="date" v-model="date" value="2022-12-01" />
         <button>Submit</button>
       </form>
     </div>
@@ -37,6 +41,8 @@
             <td>{{ timeConverter(item.creationDate) }}</td>
           </tr>
         </table>
+
+        <p v-if="isError" class="errorMsg">Connection Error</p>
       </div>
     </div>
   </div>
@@ -49,9 +55,44 @@ export default {
   data: () => {
     return {
       discounts: [],
+      discountCode: "",
+      percentageDiscount: 0,
+      date: "",
+      err: false,
+      errMsg: "",
     };
   },
   methods: {
+    async formSubmitted() {
+      console.log(this.percentageDiscount);
+      console.log(this.date);
+
+      const data = JSON.stringify({
+        discountCode: this.discountCode,
+        percentage: this.percentageDiscount,
+        creationDate: this.date,
+      });
+
+      const config = {
+        method: "post",
+        url: "http://localhost:8080/SPM_InfinityTravel/api/discounts/new",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      axios(config)
+        .then((res) => {
+          console.log(res);
+          alert("Discount Code registered successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+          this.err = true;
+          this.errMsg = err.msg;
+        });
+    },
     async fetchDiscounts() {
       const config = {
         method: "get",
@@ -68,8 +109,10 @@ export default {
           this.discounts = res.data;
           console.log(this.discounts);
         })
-        .catch(function(err) {
+        .catch((err) => {
           console.log(err);
+          this.err = true;
+          this.errMsg = err.msg;
         });
     },
     timeConverter(UNIX_timestamp) {
@@ -97,6 +140,11 @@ export default {
   },
   async mounted() {
     await this.fetchDiscounts();
+  },
+  computed: {
+    isError() {
+      return this.err;
+    },
   },
 };
 </script>
@@ -173,6 +221,10 @@ export default {
           padding: 8px;
         }
       }
+    }
+
+    .errorMsg {
+      color: red;
     }
   }
 }

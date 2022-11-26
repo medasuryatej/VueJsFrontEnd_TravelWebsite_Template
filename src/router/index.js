@@ -10,6 +10,7 @@ import Admin from "../views/Admin.vue";
 import Support from "../views/Support.vue";
 import Reserve from "../views/Reserve.vue";
 import Discounts from "../views/Discounts.vue";
+import History from "../views/History.vue";
 
 Vue.use(VueRouter);
 
@@ -92,6 +93,14 @@ const routes = [
     component: Discounts,
     meta: {
       title: "Discounts",
+    },
+  },
+  {
+    path: "/history",
+    name: "History",
+    component: History,
+    meta: {
+      title: "History",
     },
   },
 ];

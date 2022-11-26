@@ -9,7 +9,7 @@
       <div class="nav-links">
         <ul v-show="!mobile">
           <router-link class="link" :to="{ name: 'Home' }">Home <i class="nav-icon fas fa-home"></i></router-link>
-          <router-link class="link" :to="{ name: 'Blogs' }">Saved <i class="nav-icon  fas fa-save"></i></router-link>
+          <router-link class="link" :to="{ name: 'Blogs' }">Vlogs <i class="nav-icon  fas fa-save"></i></router-link>
           <router-link class="link" :to="{name: 'Reserve'}">Reservation <i class="nav-icon  fas fa-plane-departure"></i></router-link>
           <router-link class="link" :to="{ name: 'Support'}">Support <i class="nav-icon  fas fa-phone"></i></router-link>
           <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
@@ -47,6 +47,12 @@
                 <router-link class="option" :to="{name: 'Discounts'}">
                   <i class="fas fa-dollar-sign icon"></i>
                   <p>Discounts</p>
+                </router-link>
+              </div>
+              <div class="option">
+                <router-link class="option" :to="{name: 'History'}">
+                  <i class="fas fa-save icon"></i>
+                  <p>History</p>
                 </router-link>
               </div>
               <div @click="signOut" class="option">

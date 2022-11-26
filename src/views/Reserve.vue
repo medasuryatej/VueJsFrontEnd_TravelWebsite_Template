@@ -54,9 +54,11 @@
     <div class="right">
       <span v-if="apiData">Results found</span>
       <span v-else>No Results Yet</span>
-      <div v-for="(result, index) in results" :key="index">
-        <!-- <p>{{ result.airline_name }}</p> -->
-        <FlightDetail :flightResult="result" />
+      <div class="resultsDiv">
+        <div v-for="(result, index) in results" :key="index">
+          <!-- <p>{{ result.airline_name }}</p> -->
+          <FlightDetail :flightResult="result" />
+        </div>
       </div>
     </div>
   </div>
@@ -154,10 +156,18 @@ export default {
   }
 
   .right {
-    flex: 1;
+    flex: 2;
     // text-align: center;
+    // display: flex;
     margin-top: 20px;
     padding: 20px;
+
+    .resultsDiv {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
 
     span {
       font-size: 24px;

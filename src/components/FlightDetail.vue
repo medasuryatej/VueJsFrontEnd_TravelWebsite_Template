@@ -30,10 +30,19 @@
           <p>Start Date: {{ timeConverter(flightResult.start_date) }}</p>
           <p>Reach Date: {{ timeConverter(flightResult.reach_date) }}</p>
         </div>
-        <div>
-          <p class="card__apply">
-            <a class="card__link" href="#">RESERVE TICKETS</a>
-          </p>
+        <div class="card__reserve">
+          <form @submit.prevent="reserveFormSubmitted" ref="reserveForm">
+            <input
+              type="text"
+              placeholder="discountCode"
+              v-model="discountCode"
+            />
+            <button>Reserve Tickets</button>
+          </form>
+          <p v-if="flightResult.saved">Flight Search Saved</p>
+          <form v-else @submit.prevent="saveFormSubmitted" ref="saveForm">
+            <button>Save Search</button>
+          </form>
         </div>
       </div>
     </div>
@@ -41,8 +50,15 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "FlightDetail",
+  data() {
+    return {
+      discountCode: "",
+    };
+  },
   props: ["flightResult"],
   methods: {
     timeConverter(UNIX_timestamp) {
@@ -64,11 +80,52 @@ export default {
       var year = a.getFullYear();
       var month = months[a.getMonth()];
       var date = a.getDate();
-      // var hour = a.getHours();
-      // var min = a.getMinutes();
-      // var sec = a.getSeconds();
       var time = date + " " + month + " " + year;
       return time;
+    },
+
+    async reserveFormSubmitted() {
+      console.log(this.discountCode);
+      const config = {
+        method: "get",
+        url: `http://localhost:8080/SPM_InfinityTravel/api/discounts/code/${this.discountCode}`,
+        headers: {},
+      };
+
+      axios(config)
+        .then((response) => {
+          // console.log(JSON.stringify(response.data));
+          // console.log(this.flightResult.price);
+          alert(
+            `Booking Successful, ticket price after discount is ${(this
+              .flightResult.price *
+              (100 - response.data.percentage)) /
+              100}`
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(`Discount Code: ${this.discountCode} is not valid`);
+        });
+    },
+
+    async saveFormSubmitted() {
+      console.log("save form submitted");
+      console.log(this.flightResult);
+      const config = {
+        method: "get",
+        url: `http://localhost:8080/SPM_InfinityTravel/api/flights/save/${this.flightResult.flight_id}/true`,
+        headers: {},
+      };
+
+      axios(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          alert("Flight Search Saved Succesfully");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
@@ -134,18 +191,30 @@ export default {
         gap: 10px;
       }
 
-      .card__apply {
-        margin-top: 15px;
-        .card__link {
-          text-decoration: none;
-          background-color: #eeeeee;
-          color: #333333;
-          padding: 4px 8px 4px 8px;
-          border-top: 1px solid #cccccc;
-          border-right: 1px solid #333333;
-          border-bottom: 1px solid #333333;
-          border-left: 1px solid #cccccc;
-          border-radius: 5px;
+      .card__reserve {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        form {
+          width: 100%;
+          justify-content: space-between;
+
+          input {
+            margin-top: 15px;
+            margin-right: 25px;
+            padding: 15px;
+            border: none;
+            width: 200px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            border-radius: 4px;
+            box-sizing: border-box;
+            // margin: 8px 0;
+
+            &::placeholder {
+              color: rgb(85, 85, 85);
+            }
+          }
         }
       }
     }
