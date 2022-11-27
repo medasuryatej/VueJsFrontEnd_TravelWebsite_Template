@@ -15,6 +15,14 @@
         <input type="number" placeholder="10" v-model="percentageDiscount" />
         <label>Valid From Date</label>
         <input type="date" v-model="date" value="2022-12-01" />
+        <label>Expiry Date</label>
+        <input type="date" v-model="enddate" value="2022-12-01" />
+        <label>Applicability</label>
+        <input
+          type="text"
+          v-model="applicability"
+          placeholder="all / user@gmail.com"
+        />
         <button>Submit</button>
       </form>
     </div>
@@ -34,11 +42,24 @@
             <th>
               CreationDate
             </th>
+            <th>
+              ExpiryDate
+            </th>
+            <th>
+              Utilization
+            </th>
+            <th>
+              Applicability
+            </th>
           </tr>
           <tr v-for="(item, index) in discounts" :key="index">
             <td>{{ item.discountCode }}</td>
             <td>{{ item.percentage }}</td>
             <td>{{ timeConverter(item.creationDate) }}</td>
+
+            <td>{{ timeConverter(item.endDate) }}</td>
+            <td>{{ item.utilized }}</td>
+            <td>{{ item.applicability }}</td>
           </tr>
         </table>
 
@@ -58,20 +79,23 @@ export default {
       discountCode: "",
       percentageDiscount: 0,
       date: "",
+      enddate: "",
+      applicability: "",
       err: false,
       errMsg: "",
     };
   },
   methods: {
     async formSubmitted() {
-      console.log(this.percentageDiscount);
-      console.log(this.date);
-
       const data = JSON.stringify({
         discountCode: this.discountCode,
         percentage: this.percentageDiscount,
         creationDate: this.date,
+        endDate: this.enddate,
+        applicability: this.applicability,
       });
+
+      console.log(data);
 
       const config = {
         method: "post",

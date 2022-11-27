@@ -74,6 +74,16 @@ export default {
         this.email !== null &&
         this.password !== null
       ) {
+        const regularExpression = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (!regularExpression.test(this.password)) {
+          console.log(this.password);
+          // alert("password should contain atleast one number and one special character");
+          this.error = true;
+          this.errorMsg =
+            "Password must be between 8-16 characters long, with atleast one Uppercase, one lowercase, one number and one special character";
+          return false;
+        }
+
         this.error = false;
         this.errorMsg = "";
         const firebaseAuth = await firebase.auth();

@@ -31,3 +31,7 @@ insert into DISCOUNT_CODES (id, coupon_code, creation_date, expiry_date, code_ut
 insert into DISCOUNT_CODES (id, coupon_code, creation_date, expiry_date, code_utilized, assigned_to_user) values (23, 'sHOhyqXS7El', '2022-01-01', '2022-09-24', null, null);
 insert into DISCOUNT_CODES (id, coupon_code, creation_date, expiry_date, code_utilized, assigned_to_user) values (24, 'JMU0Cay', '2022-05-05', '2022-11-24', null, null);
 insert into DISCOUNT_CODES (id, coupon_code, creation_date, expiry_date, code_utilized, assigned_to_user) values (25, 'lvksmsEK', '2021-12-31', '2022-07-11', null, null);
+
+
+
+insert into DISCOUNT_CODES (coupon_code, percentage, creation_date , end_date, utilized, applicability) values ('HPYINDEPENDENCE', '10', '2022-05-01', '2022-06-30', 0, 'all');
