@@ -91,10 +91,10 @@ export default {
 
       Email.send({
         Host: "smtp.elasticemail.com",
-        Username: "rowine2732@ilusale.com",
-        Password: "A8BF065B83D3556D1B3196F506139DE3D965",
+        Username: "youremail@domain.com",
+        Password: "yourpasswordhere",
         To: this.email,
-        From: "rowine2732@ilusale.com",
+        From: "youremail@domain.com",
         Subject: this.newcaseno + ": " + this.subject + " : " + this.severity,
         Body: this.description + messageBody,
       }).then((message) => alert("Issue registered, check the email."));
