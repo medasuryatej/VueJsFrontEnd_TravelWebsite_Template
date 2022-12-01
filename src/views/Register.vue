@@ -7,7 +7,7 @@
           >Login</router-link
         >
       </p>
-      <h2>Create your FireBlog Account</h2>
+      <h2>Create your InfinityTravel Account</h2>
       <div class="inputs">
         <div class="input">
           <input type="text" placeholder="First Name" v-model="firstName" />

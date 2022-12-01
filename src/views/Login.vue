@@ -7,7 +7,7 @@
           >Register</router-link
         >
       </p>
-      <h2>Login to FireBlogs</h2>
+      <h2>Login to InfinityTravel</h2>
       <div class="inputs">
         <div class="input">
           <input type="text" placeholder="Email" v-model="email" />

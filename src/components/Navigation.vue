@@ -3,20 +3,33 @@
     <nav class="container">
       <div class="branding">
         <router-link class="header" :to="{ name: 'Home' }"
-          >InfinityTravel <i class="fas fa-helicopter"></i> </router-link
-        >
+          >InfinityTravel <i class="fas fa-helicopter"></i>
+        </router-link>
       </div>
       <div class="nav-links">
         <ul v-show="!mobile">
-          <router-link class="link" :to="{ name: 'Home' }">Home <i class="nav-icon fas fa-home"></i></router-link>
-          <router-link class="link" :to="{ name: 'Blogs' }">Vlogs <i class="nav-icon  fas fa-save"></i></router-link>
-          <router-link class="link" :to="{name: 'Reserve'}">Reservation <i class="nav-icon  fas fa-plane-departure"></i></router-link>
-          <router-link class="link" :to="{ name: 'Support'}">Support <i class="nav-icon  fas fa-phone"></i></router-link>
+          <router-link class="link" :to="{ name: 'Home' }"
+            >Home <i class="nav-icon fas fa-home"></i
+          ></router-link>
+          <router-link class="link" :to="{ name: 'Blogs' }"
+            >Vlogs <i class="nav-icon  fas fa-save"></i
+          ></router-link>
+          <router-link class="link" :to="{ name: 'Reserve' }"
+            >Reservation <i class="nav-icon  fas fa-plane-departure"></i
+          ></router-link>
+          <router-link class="link" :to="{ name: 'Support' }"
+            >Support <i class="nav-icon  fas fa-phone"></i
+          ></router-link>
           <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
-            >Login/Register <i class="nav-icon fas fa-user"></i></router-link
-          >
+            >Login/Register <i class="nav-icon fas fa-user"></i
+          ></router-link>
         </ul>
-        <div v-if="user" @click="toggleProfileMenu" class="profile" ref="profile">
+        <div
+          v-if="user"
+          @click="toggleProfileMenu"
+          class="profile"
+          ref="profile"
+        >
           <span>{{ this.$store.state.profileInitials }}</span>
           <div v-show="profileMenu" class="profile-menu">
             <div class="info">
@@ -32,32 +45,32 @@
             </div>
             <div class="options">
               <div class="option">
-                <router-link class="option" :to="{name: 'Profile'}">
+                <router-link class="option" :to="{ name: 'Profile' }">
                   <userIcon class="icon" />
                   <p>Profile</p>
                 </router-link>
               </div>
               <div class="option">
-                <router-link class="option" :to="{name: 'Admin'}">
+                <router-link class="option" :to="{ name: 'Admin' }">
                   <adminIcon class="icon" />
                   <p>Admin</p>
                 </router-link>
               </div>
               <div class="option">
-                <router-link class="option" :to="{name: 'Discounts'}">
+                <router-link class="option" :to="{ name: 'Discounts' }">
                   <i class="fas fa-dollar-sign icon"></i>
                   <p>Discounts</p>
                 </router-link>
               </div>
               <div class="option">
-                <router-link class="option" :to="{name: 'History'}">
+                <router-link class="option" :to="{ name: 'History' }">
                   <i class="fas fa-save icon"></i>
                   <p>History</p>
                 </router-link>
               </div>
               <div @click="signOut" class="option">
-                  <signOutIcon class="icon" />
-                  <p>SignOut</p>
+                <signOutIcon class="icon" />
+                <p>SignOut</p>
               </div>
             </div>
           </div>
@@ -68,14 +81,21 @@
 
     <transition name="mobile-nav">
       <ul class="mobile-nav" v-show="mobileNav">
-        <router-link class="link" :to="{ name: 'Home' }">Home <i class="nav-icon fas fa-home"></i></router-link>
-        <router-link class="link" :to="{ name: 'Blogs' }">Saved <i class="nav-icon  fas fa-save"></i></router-link>
-        <router-link class="link" :to="{name: 'Reserve'}">Reservation <i class="nav-icon  fas fa-plane-departure"></i></router-link>
-        <router-link class="link" :to="{ name: 'Support'}">Support <i class="nav-icon fas fa-phone"></i></router-link>
+        <router-link class="link" :to="{ name: 'Home' }"
+          >Home <i class="nav-icon fas fa-home"></i
+        ></router-link>
+        <router-link class="link" :to="{ name: 'Blogs' }"
+          >Saved <i class="nav-icon  fas fa-save"></i
+        ></router-link>
+        <router-link class="link" :to="{ name: 'Reserve' }"
+          >Reservation <i class="nav-icon  fas fa-plane-departure"></i
+        ></router-link>
+        <router-link class="link" :to="{ name: 'Support' }"
+          >Support <i class="nav-icon fas fa-phone"></i
+        ></router-link>
         <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
-          >Login/Register <i class="nav-icon fas fa-user"></i></router-link
-        >
-        
+          >Login/Register <i class="nav-icon fas fa-user"></i
+        ></router-link>
       </ul>
     </transition>
   </header>
@@ -88,6 +108,7 @@ import adminIcon from "../assets/Icons/user-crown-light.svg";
 import signOutIcon from "../assets/Icons/sign-out-alt-regular.svg";
 import firebase from "firebase/app";
 import "firebase/auth";
+import router from "../router";
 
 export default {
   name: "navigation",
@@ -132,14 +153,15 @@ export default {
 
     signOut() {
       firebase.auth().signOut();
+      router.push("/");
       window.location.reload();
-    }
+    },
   },
 
   computed: {
     user() {
       return this.$store.state.user;
-    }
+    },
   },
 };
 </script>
