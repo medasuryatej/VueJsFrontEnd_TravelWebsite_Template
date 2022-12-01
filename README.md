@@ -15,6 +15,14 @@ Backend in Java (servlets) is available here: https://github.com/medasuryatej/Ja
 npm install
 ```
 
+### Things to correct
+```
+1. Have a backend server setup
+2. Have a fontawesome account and provide the fontawesome.js url in public/index.html
+3. For email support to work, one must register with a SMTP email server
+4. For login/registration to work, please setup a firebase account and use the firebase config at src/firebase/firebaseinit.js
+```
+
 ### Compiles and hot-reloads for development
 
 ```
